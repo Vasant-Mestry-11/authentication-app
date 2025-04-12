@@ -6,6 +6,7 @@ import { useActionState } from 'react';
 export default function AuthForm() {
 
   const [formState, formAction] = useActionState(signUp, {})
+  console.log(formState)
   return (
     <form id="auth-form" action={formAction}>
       <div>
@@ -19,7 +20,7 @@ export default function AuthForm() {
         <label htmlFor="password">Password</label>
         <input type="password" name="password" id="password" />
       </p>
-      {formState.errors && <ul id="form-errors">
+      {formState?.errors && <ul id="form-errors">
         {Object.values(formState.errors).map((error) => <li key={error}>{error}</li>)}
       </ul>}
       <p>
