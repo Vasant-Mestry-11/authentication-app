@@ -1,5 +1,7 @@
 "use server";
 
+import { createUser } from "@/lib/user";
+
 export async function signUp(prevState, formData) {
   const email = formData.get("email");
   const password = formData.get("password");
@@ -19,4 +21,6 @@ export async function signUp(prevState, formData) {
       errors,
     };
   }
+
+  createUser(email, password)
 }
