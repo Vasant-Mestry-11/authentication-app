@@ -1,11 +1,10 @@
-'use client';
-import { signUp } from '@/actions/auth-actions';
-import Link from 'next/link';
-import { useActionState } from 'react';
+"use client";
+import { signUp } from "@/actions/auth-actions";
+import Link from "next/link";
+import { useActionState } from "react";
 
-export default function AuthForm() {
-
-  const [formState, formAction] = useActionState(signUp, {})
+export default function AuthForm({ mode }) {
+  const [formState, formAction] = useActionState(signUp, {});
   return (
     <form id="auth-form" action={formAction}>
       <div>
@@ -19,16 +18,23 @@ export default function AuthForm() {
         <label htmlFor="password">Password</label>
         <input type="password" name="password" id="password" />
       </p>
-      {formState?.errors && <ul id="form-errors">
-        {Object.values(formState.errors).map((error) => <li key={error}>{error}</li>)}
-      </ul>}
+      {formState?.errors && (
+        <ul id="form-errors">
+          {Object.values(formState.errors).map((error) => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      )}
       <p>
-        <button type="submit">
-          Create Account
-        </button>
+        <button type="submit">{mode === 'login' ? 'Login' : 'Create Account'}</button>
       </p>
       <p>
-        <Link href="/">Login with existing account.</Link>
+        {mode === "login" && (
+          <Link href="/?mode=signup">Create an account.</Link>
+        )}
+        {mode === "signup" && (
+          <Link href="/?mode=login">Login with existing account.</Link>
+        )}
       </p>
     </form>
   );
